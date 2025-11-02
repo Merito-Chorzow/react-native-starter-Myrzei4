@@ -1,32 +1,45 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/7LzBu2L3)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=21331023&assignment_repo_type=AssignmentRepo)
-# React Native: Field Notes
+# Field Notes
 
-## Cel
-Stwórz podstawową aplikację mobilną w **React Native (React)**, która wykorzystuje **natywną funkcję urządzenia** oraz **komunikuje się z API**. Aplikacja ma mieć **3–4 widoki**.
+## Opis
+Prosta aplikacja mobilna napisana w **React Native (Expo Router)**.  
+Pozwala tworzyć notatki z tytułem, opisem i zdjęciem z galerii.  
+Dodatkowo można przetłumaczyć opis notatki przez API LibreTranslate.
+
+## Funkcje
+- Lista notatek (tytuł, opis, miniaturka zdjęcia).
+- Szczegóły notatki (pełny opis, zdjęcie, przyciski: Edytuj, Usuń, Tłumacz).
+- Dodawanie i edycja notatki (formularz + możliwość dodania zdjęcia).
+- Info screen z krótkim opisem aplikacji.
+
+## Natywna funkcja
+- Wybór zdjęcia z galerii urządzenia (ImagePicker).
+![alt text](image.png)
+
+## API
+- **LibreTranslate** – tłumaczenie opisu notatki na wybrany język.
+
+## Widoki
+1. Lista notatek
+![alt text](image-1.png)
+2. Szczegóły notatki
+![alt text](image-2.png)
+3. Dodaj / Edytuj notatkę
+![alt text](image-3.png)
+![alt text](image-4.png)
+4. Info
+![alt text](image-5.png)
 
 
-## Zakres i wymagania funkcjonalne
-- **Natywna funkcja (min. 1):** wybierz i uzasadnij (np. aparat/kamera, lokalizacja GPS, wibracje/haptics, pliki/galeria).
-- **API (min. 1 endpoint):** odczyt lub zapis danych (publiczne lub własne/mock).
-- **Widoki (3–4):**
-  1. **Lista notatek** (tytuł, data, miniaturka/znacznik lokalizacji).
-  2. **Szczegóły notatki** (opis, zdjęcie/pozycja, akcje).
-  3. **Dodaj/Edytuj** (formularz: tytuł, opis, dodaj zdjęcie **lub** pobierz lokalizację).
-  4. *(Opcjonalnie)* **Ustawienia/O aplikacji** (akcenty dostępności, info o wersji).
-- **Stan:** lokalny lub prosty store; brak trwałego storage wymagany, ale dopuszczalny.
-- **Dostępność:** podstawowe etykiety i rozmiary celów dotyku (~44–48 px).
+## Jak testować
+1. Uruchom aplikację na emulatorze lub urządzeniu. (npx expo run:android)
+2. Dodaj nową notatkę (tytuł, opis, zdjęcie).
+3. Otwórz notatkę z listy → zobacz szczegóły.
+4. Kliknij **Translate** i wybierz język → opis zostanie przetłumaczony.
+5. Sprawdź edycję i usuwanie notatek.
 
-## Testowanie lokalne (w trakcie developmentu)
-- Uruchom na **urządzeniu/emulatorze**.
-- Pokaż: dodanie notatki, użycie **natywnej funkcji** (np. zrobienie zdjęcia lub pobranie GPS), wyświetlenie listy i szczegółów.
-- Pokaż komunikację z **API** (np. pobranie listy lub zapis nowej notatki).
-- Zweryfikuj: błędy/edge cases (brak uprawnień, brak internetu).
-
-## Definition of Done (DoD)
-- [ ] 3–4 kompletne widoki zgodne z opisem.
-- [ ] Użyta co najmniej **1 natywna funkcja**.
-- [ ] Integracja z **API** (co najmniej 1 żądanie).
-- [ ] Czytelny UI + podstawowa dostępność.
-- [ ] Aktualizacja `README.md` z opisem funkcji i sposobem testowania.
-- [ ] Min. 3 logiczne commity.
+## Definition of Done
+- [x] 3–4 widoki
+- [x] 1 natywna funkcja (galeria)
+- [x] Integracja z API (LibreTranslate)
+- [x] Czytelny UI
+- [x] README z opisem
