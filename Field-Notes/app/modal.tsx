@@ -1,18 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function ModalScreen() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <View style={styles.modalBox}>
+        <Text style={styles.title}>Information</Text>
+        <Text style={styles.message}>
+          This is a modal window. You can use it to show details, warnings, or confirmations.
+        </Text>
+        <TouchableOpacity onPress={() => router.back()} style={styles.button}>
+          <Text style={styles.buttonText}>Close</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -20,16 +22,35 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "rgba(0,0,0,0.7)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalBox: {
+    backgroundColor: "#1e1e1e",
+    padding: 20,
+    borderRadius: 8,
+    width: "85%",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    color: "#666",
+    marginBottom: 12,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  message: {
+    fontSize: 16,
+    color: "#ccc",
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: "#2d6cdf",
+    paddingVertical: 12,
+    borderRadius: 6,
+  },
+  buttonText: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "600",
   },
 });

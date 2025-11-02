@@ -1,31 +1,41 @@
-import { StyleSheet } from 'react-native';
+import { useNotes } from "../../context/NotesContext";
+import { Link } from "expo-router";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+export default function Home() {
+  const { notes } = useNotes();
 
-export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View style={{ flex: 1, padding: 16, backgroundColor: "#121212" }}>
+      <FlatList
+        data={notes}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <Link href={`/note/${item.id}`}>
+            <Text style={{ fontSize: 18, color: "#fff", marginVertical: 8 }}>
+              {item.title}
+            </Text>
+          </Link>
+        )}
+        ItemSeparatorComponent={() => (
+          <View style={{ height: 1, backgroundColor: "#333" }} />
+        )}
+        ListEmptyComponent={
+          <Text style={{ color: "#aaa", marginTop: 20 }}>No notes yet</Text>
+        }
+      />
+      <Link href="/note/new" asChild>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#2d6cdf",
+            padding: 12,
+            marginTop: 16,
+            borderRadius: 6,
+          }}
+        >
+          <Text style={{ color: "#fff", textAlign: "center" }}>Add Note</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
