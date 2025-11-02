@@ -1,31 +1,36 @@
-import { StyleSheet } from 'react-native';
+import { View, Text, FlatList } from "react-native"
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+const languages = [
+  { code: "en", name: "English" },
+  { code: "pl", name: "Polish" },
+  { code: "de", name: "German" },
+  { code: "fr", name: "French" },
+  { code: "es", name: "Spanish" },
+]
 
-export default function TabTwoScreen() {
+export default function TabTwo() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" />
+    <View style={{ flex: 1, backgroundColor: "#121212", padding: 16 }}>
+      <Text style={{ color: "#fff", fontSize: 20, fontWeight: "bold", marginBottom: 12 }}>
+        Available Languages
+      </Text>
+      <FlatList
+        data={languages}
+        keyExtractor={(item) => item.code}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              padding: 12,
+              borderBottomWidth: 1,
+              borderBottomColor: "#333",
+            }}
+          >
+            <Text style={{ color: "#fff", fontSize: 16 }}>
+              {item.name} ({item.code})
+            </Text>
+          </View>
+        )}
+      />
     </View>
-  );
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

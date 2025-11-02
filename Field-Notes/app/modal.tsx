@@ -1,56 +1,55 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity, Text } from "react-native";
+import { Link } from "expo-router";
 
-export default function ModalScreen() {
-  const router = useRouter();
-
+export default function TabLayout() {
   return (
-    <View style={styles.container}>
-      <View style={styles.modalBox}>
-        <Text style={styles.title}>Information</Text>
-        <Text style={styles.message}>
-          This is a modal window. You can use it to show details, warnings, or confirmations.
-        </Text>
-        <TouchableOpacity onPress={() => router.back()} style={styles.button}>
-          <Text style={styles.buttonText}>Close</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "#2d6cdf",
+        tabBarInactiveTintColor: "#aaa",
+        tabBarStyle: {
+          backgroundColor: "#121212",
+          borderTopColor: "#333",
+        },
+        headerStyle: { backgroundColor: "#121212" },
+        headerTintColor: "#fff",
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Tab One",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
+          ),
+          headerRight: () => (
+            <Link href="/info" asChild>
+              <TouchableOpacity
+                style={{
+                  marginRight: 12,
+                  backgroundColor: "#2d6cdf",
+                  paddingHorizontal: 12,
+                  paddingVertical: 6,
+                  borderRadius: 6,
+                }}
+              >
+                <Text style={{ color: "#fff" }}>Info</Text>
+              </TouchableOpacity>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="two"
+        options={{
+          title: "Tab Two",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.7)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalBox: {
-    backgroundColor: "#1e1e1e",
-    padding: 20,
-    borderRadius: 8,
-    width: "85%",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#666",
-    marginBottom: 12,
-  },
-  message: {
-    fontSize: 16,
-    color: "#ccc",
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: "#2d6cdf",
-    paddingVertical: 12,
-    borderRadius: 6,
-  },
-  buttonText: {
-    color: "#fff",
-    textAlign: "center",
-    fontWeight: "600",
-  },
-});

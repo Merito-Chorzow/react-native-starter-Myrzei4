@@ -1,7 +1,7 @@
-import { Tabs } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity, Text } from "react-native";
-import { Link } from "expo-router";
+import { Tabs } from "expo-router"
+import { Ionicons } from "@expo/vector-icons"
+import { TouchableOpacity, Text } from "react-native"
+import { Link } from "expo-router"
 
 export default function TabLayout() {
   return (
@@ -15,17 +15,18 @@ export default function TabLayout() {
         },
         headerStyle: { backgroundColor: "#121212" },
         headerTintColor: "#fff",
+        headerShown: true, 
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Tab One",
+          title: "Notes",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/info" asChild>
               <TouchableOpacity
                 style={{
                   marginRight: 12,
@@ -35,7 +36,7 @@ export default function TabLayout() {
                   borderRadius: 6,
                 }}
               >
-                <Text style={{ color: "#fff" }}>Modal</Text>
+                <Text style={{ color: "#fff" }}>Info</Text>
               </TouchableOpacity>
             </Link>
           ),
@@ -44,27 +45,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name="two"
         options={{
-          title: "Tab Two",
+          title: "Availibility",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="list" color={color} size={size} />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <TouchableOpacity
-                style={{
-                  marginRight: 12,
-                  backgroundColor: "#444",
-                  paddingHorizontal: 12,
-                  paddingVertical: 6,
-                  borderRadius: 6,
-                }}
-              >
-                <Text style={{ color: "#fff" }}>Modal</Text>
-              </TouchableOpacity>
-            </Link>
           ),
         }}
       />
     </Tabs>
-  );
+  )
 }

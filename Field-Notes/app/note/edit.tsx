@@ -1,37 +1,41 @@
-import { useState } from "react"
-import { useNotes } from "../../context/NotesContext"
-import { useRouter } from "expo-router"
-import * as ImagePicker from "expo-image-picker"
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native"
+import { useState } from "react";
+import { useNotes } from "../../context/NotesContext";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import * as ImagePicker from "expo-image-picker";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 
-export default function NoteForm() {
-  const [title, setTitle] = useState("")
-  const [desc, setDesc] = useState("")
-  const [image, setImage] = useState<string | null>(null)
-  const { addNote } = useNotes()
-  const router = useRouter()
+export default function EditNote() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { notes, updateNote } = useNotes();
+  const router = useRouter();
+  const note = notes.find(n => n.id === id);
+
+  const [title, setTitle] = useState(note?.title || "");
+  const [desc, setDesc] = useState(note?.desc || "");
+  const [image, setImage] = useState<string | undefined>(note?.imageUri);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    })
-
+      quality: 0.7,
+    });
     if (!result.canceled) {
-      setImage(result.assets[0].uri)
+      setImage(result.assets[0].uri);
     }
-  }
+  };
 
   const save = () => {
-    if (!title.trim()) return
-    addNote({
-      id: Date.now().toString(),
-      title,
-      desc,
-      imageUri: image || undefined,
-    })
-    router.back()
+    if (!note) return;
+    updateNote(note.id, title, desc, image);
+    router.back();
+  };
+
+  if (!note) {
+    return (
+      <View style={{ flex: 1, padding: 16, backgroundColor: "#121212" }}>
+        <Text style={{ color: "#fff" }}>Note not found</Text>
+      </View>
+    );
   }
 
   return (
@@ -66,27 +70,24 @@ export default function NoteForm() {
         placeholderTextColor="#777"
         multiline
       />
-
       {image && (
         <Image
           source={{ uri: image }}
           style={{ width: "100%", height: 200, marginBottom: 12, borderRadius: 6 }}
         />
       )}
-
       <TouchableOpacity
         onPress={pickImage}
         style={{ backgroundColor: "#444", padding: 12, borderRadius: 6, marginBottom: 12 }}
       >
         <Text style={{ color: "#fff", textAlign: "center" }}>Pick Image</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         onPress={save}
         style={{ backgroundColor: "#2d6cdf", padding: 12, borderRadius: 6 }}
       >
-        <Text style={{ color: "#fff", textAlign: "center" }}>Save</Text>
+        <Text style={{ color: "#fff", textAlign: "center" }}>Save Changes</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
